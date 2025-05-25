@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu
 
     steps:
     - uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
     - name: Extract changelog summary
       run: sed '/^$/q' CHANGELOG > build/libs/CHANGELOG_SUMMARY
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: Linux binaries
         path: build/libs
@@ -34,7 +34,7 @@ jobs:
         files: build/libs/*
 
   mac:
-    runs-on: macos-12
+    runs-on: macos
 
     steps:
     - uses: actions/checkout@v3
@@ -64,7 +64,7 @@ jobs:
         APPLE_USER: ${{ secrets.APPLE_USER }}
         APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: macOS binaries
         path: build/libs
@@ -77,7 +77,7 @@ jobs:
         files: build/libs/*.zip
 
   windows:
-    runs-on: windows-2022
+    runs-on: windows
 
     steps:
     - uses: actions/checkout@v3
@@ -91,7 +91,7 @@ jobs:
         cache: 'gradle'
     - run: ./gradlew test win-installer --info
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: Windows binaries
         path: build/libs
