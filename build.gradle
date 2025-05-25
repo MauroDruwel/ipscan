@@ -156,7 +156,13 @@ def minimizeTask(String platform, Closure doMore) {
         dontnote '**'
         configuration 'ext/swt.pro'
         configuration 'ext/jna.pro'
-
+        // Add Gson and other dependencies as library jars
+        configurations.compileClasspath.files.each { File dep ->
+            if(dep.name.contains("gson")) {
+                libraryjars dep.absolutePath
+            }
+        }
+        
         def keepClasses = [
             'net.azib.ipscan.**',
         ]
